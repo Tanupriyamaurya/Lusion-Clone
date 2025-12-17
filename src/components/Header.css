@@ -1,64 +1,59 @@
-/* =====================================================
-   ROOT / VARIABLES
-===================================================== */
 :root {
-  --bg-light: #f4f6fb;
-  --text-dark: #000;
+  --header-height: 96px;
   --btn-dark: #111;
-  --btn-light: #e8eaf0;
+  --btn-light: #fff;
 }
 
-/* =====================================================
-   HEADER BASE
-===================================================== */
+body {
+  padding-top: var(--header-height);
+  margin: 0;
+  font-family: sans-serif;
+}
+
 .header {
-  position: relative;
-  z-index: 20;
-
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  z-index: 1000;
+  display: flex;
   align-items: center;
-
-  padding: 27px 64px;
-  background: var(--bg-light);
-  color: var(--text-dark);
+  justify-content: space-between;
+  padding: 0 64px;
+  background: #f4f6fb;
+  box-sizing: border-box;
 }
 
-/* =====================================================
-   BRAND
-===================================================== */
 .header__brand {
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 2px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* =====================================================
-   CENTER HEADLINE
-===================================================== */
 .header__center {
-  max-width: 720px;
-  margin: 0 auto;
-
-  font-size: 36px;
-  line-height: 1.25;
-  font-weight: 500;
+  flex-basis: 100%;       /* take full width on small screens */
   text-align: center;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 8px auto 0 auto; /* top spacing + center horizontally */
+  padding: 0 16px;        /* horizontal padding on sides */
+  max-width: 600px;       /* limits width so text wraps nicely */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* =====================================================
-   RIGHT SIDE
-===================================================== */
 .header__right {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-shrink: 0;
+  position: relative;
 }
 
-/* =====================================================
-   BUTTONS
-===================================================== */
 .talk-btn,
 .menu-btn {
   border: none;
@@ -69,7 +64,6 @@
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
@@ -86,6 +80,7 @@
 .menu-btn {
   background: var(--btn-light);
   color: #000;
+  border: 1px solid #dcdfe8;
 }
 
 .menu-btn:hover {
@@ -93,40 +88,28 @@
   transform: translateY(-2px);
 }
 
-/* =====================================================
-   MENU DROPDOWN
-===================================================== */
 .menu-overlay {
-  position: absolute;      /* relative to menu button */
-  top: 100%;               /* below the button */
-  right: 0;                /* align to button right */
-  width: 220px;            /* dropdown width */
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 220px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-  padding: 12px 16px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+  padding: 14px 18px;
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   pointer-events: none;
-  z-index: 1000;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1001;
 }
 
-/* Show dropdown when menu is open */
 .menu-overlay.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-/* =====================================================
-   MENU ITEMS
-===================================================== */
 .menu-item {
   font-size: 16px;
   font-weight: 500;
@@ -140,30 +123,29 @@
   opacity: 0.7;
 }
 
-/* =====================================================
-   LARGE DESKTOP (1440px+)
-===================================================== */
-@media (min-width: 1440px) {
+/* --------- RESPONSIVE --------- */
+
+@media (max-width: 1440px) {
   .header {
-    padding: 32px 96px;
+    padding: 0 48px;
   }
 
   .header__center {
-    font-size: 42px;
+    font-size: 32px;
+  }
+
+  .menu-overlay {
+    width: 200px;
   }
 }
 
-/* =====================================================
-   LAPTOP / SMALL DESKTOP (1024px)
-===================================================== */
 @media (max-width: 1024px) {
   .header {
-    padding: 24px 40px;
+    padding: 0 32px;
   }
 
   .header__center {
     font-size: 28px;
-    max-width: 560px;
   }
 
   .menu-overlay {
@@ -171,34 +153,31 @@
   }
 }
 
-/* =====================================================
-   TABLET / MOBILE (768px)
-===================================================== */
 @media (max-width: 768px) {
   .header {
-    grid-template-columns: auto auto;
+    padding: 0 20px;
   }
 
+  @media (max-width: 768px) {
   .header__center {
-    display: none;
-  }
-
-  .talk-btn {
-    display: none; 
-  }
-
-  .menu-btn {
-    padding: 12px 20px;
-    font-size: 13px;
+    font-size: 20px;
+    padding: 0 12px;      /* smaller padding for mobile */
+    max-width: 90%;       /* keep it within screen nicely */
   }
 }
 
-/* =====================================================
-   SMALL MOBILE (480px)
-===================================================== */
+  .talk-btn {
+    display: none;
+  }
+
+  .menu-overlay {
+    width: 160px;
+  }
+}
+
 @media (max-width: 480px) {
   .header {
-    padding: 20px;
+    padding: 0 16px;
   }
 
   .header__brand {
@@ -206,9 +185,17 @@
   }
 
   .menu-btn {
-    padding: 10px 18px;
-    font-size: 12px;
+    padding: 10px 14px;
+    font-size: 13px;
   }
+
+  
+  .header__center {
+    font-size: 18px;
+    padding: 0 10px;
+    max-width: 95%;
+
+}
 
   .menu-overlay {
     width: 140px;

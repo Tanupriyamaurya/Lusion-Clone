@@ -14,7 +14,6 @@ function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] })
   const menuBtnRef = useRef(null);
   const menuRef = useRef(null);
 
-  /* ================= PAGE LOAD ANIMATION ================= */
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -26,7 +25,7 @@ function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] })
     return () => ctx.revert();
   }, []);
 
-  /* ================= MENU DROPDOWN ANIMATION ================= */
+
   useEffect(() => {
     if (!menuRef.current) return;
 
@@ -62,15 +61,7 @@ function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] })
           <div
             ref={menuRef}
             className={`menu-overlay ${menuOpen ? "open" : ""}`}
-            style={{
-    top: menuBtnRef.current
-      ? menuBtnRef.current.getBoundingClientRect().bottom + "px"
-      : 0,
-    left: menuBtnRef.current
-      ? menuBtnRef.current.getBoundingClientRect().left + "px"
-      : 0,
-    position: "fixed", // FIXED so it doesn't collapse
-  }}
+  //           
           >
             {menuItems.map((item, i) => (
               <div key={i} className="menu-item">

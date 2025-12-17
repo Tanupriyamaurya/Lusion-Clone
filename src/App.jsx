@@ -1,4 +1,6 @@
 import Header from "./components/Header";
+import HeroTextSection from "./components/HeroTextSection";
+import HeroVideoSection from "./components/HeroVideoSection";
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
     "Labs",
   ]}
       />
-
+<HeroVideoSection/>
+<HeroTextSection/>
       
     </>
   );
