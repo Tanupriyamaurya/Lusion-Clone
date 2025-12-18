@@ -10,23 +10,44 @@ export default function HeroTextSection() {
   const titleRef = useRef(null);
   const descRef = useRef(null);
 
-  useEffect(() => {
+ useEffect(() => {
   const ctx = gsap.context(() => {
-    gsap.from(".title-line", {
-      y: 120,
-      opacity: 0,
-      duration: 1.4,
-      ease: "power4.out",
-      stagger: 0.15,
-    });
 
-    gsap.from(descRef.current, {
-      y: 60,
-      opacity: 0,
-      duration: 1,
-      ease: "power4.out",
-      delay: 0.4,
-    });
+    gsap.fromTo(
+      ".line-inner",
+      { y: 120, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power4.out",
+        stagger: 0.2,
+        immediateRender: false,
+        clearProps: "transform,opacity",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    gsap.fromTo(
+      descRef.current,
+      { y: 40, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power4.out",
+        immediateRender: false,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      }
+    );
+
   }, sectionRef);
 
   return () => ctx.revert();
@@ -38,14 +59,13 @@ export default function HeroTextSection() {
       <div className="hero-text-container">
         <h1 ref={titleRef} className="hero-text-title">
   <span className="title-line title-center">
-    Ideas Beyond Limits
+    <span className="line-inner">Ideas Beyond Limits</span>
   </span>
+
   <span className="title-line title-left">
-    Crafted for Impact
+    <span className="line-inner">Crafted for Impact</span>
   </span>
 </h1>
-
-
 
         <p ref={descRef} className="hero-text-description">
           We are a creative digital studio focused on building immersive
