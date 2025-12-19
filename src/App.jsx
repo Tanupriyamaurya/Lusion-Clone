@@ -1,26 +1,16 @@
-import Header from "./components/Header";
-import HeroTextSection from "./components/HeroTextSection";
-import HeroVideoSection from "./components/HeroVideoSection";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import routes from "./routes/routes";
 
 function App() {
   return (
-    <>
-      <Header
-         brandName="STUDIO X"
-  headlineText="Crafting interactive experiences through design and technology"
-  ctaText="START A PROJECT"
-  menuItems={[
-    "Home",
-    "About Us",
-    "Projects",
-    "Contact",
-    "Labs",
-  ]}
-      />
-<HeroVideoSection/>
-<HeroTextSection/>
-      
-    </>
+    <Router>
+      <Routes>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.element} />
+        ))}
+      </Routes>
+    </Router>
   );
 }
 
