@@ -13,53 +13,40 @@ export default function HeroTextSection() {
   useLayoutEffect(() => {
   const ctx = gsap.context(() => {
     const lines = sectionRef.current.querySelectorAll(".line-inner");
+    const desc = descRef.current;
 
-    // TEXT ANIMATION
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 85%",
-          once: true,
-        },
-      })
-      .to(lines, {
-        y: 0,
-        opacity: 1,
-        duration: 1.1,
-        ease: "power4.out",
-        stagger: 0.18,
-      })
-      .to(
-        descRef.current,
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          ease: "power4.out",
-        },
-        "-=0.45"
-      );
-
-    // ✅ VIDEO FULLSCREEN SCROLL ANIMATION
-    gsap.to(videoWrapperRef.current, {
-      width: "100vw",
-      height: "100vh",
-      borderRadius: 0,
-      ease: "power2.inOut",
+    gsap.timeline({
       scrollTrigger: {
-        trigger: ".video-section",
-        start: "top center",
-        end: "+=100%",
-        scrub: true,
-         
+        trigger: sectionRef.current,
+        start: "top 75%",
+        toggleActions: "play none none reset",
+        // 👆 allows animation to play when entering
       },
-    });
-  });
-
+    })
+    .from(lines, {
+      y: 120,
+      opacity: 0,
+      duration: 1.1,
+      ease: "power4.out",
+      stagger: 0.18,
+      immediateRender: false,
+    })
+    .from(
+      desc,
+      {
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power4.out",
+        immediateRender: false,
+      },
+      "-=0.4"
+    );
+  }, sectionRef);
 
   return () => ctx.revert();
 }, []);
+
 
 
   return (

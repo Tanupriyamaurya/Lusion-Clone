@@ -4,6 +4,8 @@ import Header from "../Header"
 import HeroTextSection from "../HeroTextSection";
 import HeroVideoSection from "../HeroVideoSection";
 import FeaturedWork from "../featuredWork/FeaturedWork";
+import UniqueCrafted from "../featuredWork/UniqueCraftedSection";
+import Footer from "../footer/Footer";
 
 const HomePage = () => {
   return (
@@ -17,6 +19,8 @@ const HomePage = () => {
       <HeroVideoSection />
       <HeroTextSection />
       <FeaturedWork />
+      <UniqueCrafted/>
+      <Footer/>
     </>
   );
 };
