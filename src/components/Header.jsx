@@ -1,12 +1,18 @@
-
-
-
 import { useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import gsap from "gsap";
 import "./Header.css";
 
-function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] }) {
+function Header({
+  brandName = "LUSION",
+  headlineText,
+  ctaText,
+  menuItems = [],
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const headerRef = useRef(null);
   const headlineRef = useRef(null);
@@ -14,36 +20,75 @@ function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] })
   const menuBtnRef = useRef(null);
   const menuRef = useRef(null);
 
+  // Route mapping
+  const routesMap = {
+    HOME: "/",
+    ABOUT: "/about",
+    PROJECTS: "/projects",
+    CONTACT: "/contact",
+    LABS: "/labs",
+  };
+
+  /* -------------------------------
+     Header entrance animation
+  -------------------------------- */
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.from(headlineRef.current, { y: 60, opacity: 0, duration: 1 })
-        .from(talkBtnRef.current, { y: 30, opacity: 0, duration: 0.7 }, "-=0.6")
-        .from(menuBtnRef.current, { y: 30, opacity: 0, duration: 0.7 }, "-=0.6");
+      gsap
+        .timeline({ defaults: { ease: "power4.out" } })
+        .from(headlineRef.current, {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+        })
+        .from(
+          talkBtnRef.current,
+          { y: 30, opacity: 0, duration: 0.7 },
+          "-=0.6"
+        )
+        .from(
+          menuBtnRef.current,
+          { y: 30, opacity: 0, duration: 0.7 },
+          "-=0.6"
+        );
     }, headerRef);
 
     return () => ctx.revert();
   }, []);
 
-
+  /* -------------------------------
+     Menu open / close animation
+     (NO pointer-events here)
+  -------------------------------- */
   useEffect(() => {
     if (!menuRef.current) return;
 
-    if (menuOpen) {
-      gsap.to(menuRef.current, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" });
-    } else {
-      gsap.to(menuRef.current, { opacity: 0, y: -10, duration: 0.2, ease: "power4.in" });
-    }
+    gsap.to(menuRef.current, {
+      opacity: menuOpen ? 1 : 0,
+      y: menuOpen ? 0 : -10,
+      duration: menuOpen ? 0.3 : 0.2,
+      ease: menuOpen ? "power4.out" : "power4.in",
+    });
   }, [menuOpen]);
+
+  /* -------------------------------
+     Close menu on route change
+  -------------------------------- */
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className="header" ref={headerRef}>
+      {/* Brand */}
       <div className="header__brand">{brandName}</div>
 
+      {/* Center headline */}
       <div className="header__center" ref={headlineRef}>
         {headlineText}
       </div>
 
+      {/* Right controls */}
       <div className="header__right">
         <button ref={talkBtnRef} className="talk-btn">
           {ctaText}
@@ -52,19 +97,34 @@ function Header({ brandName = "LUSION", headlineText, ctaText, menuItems = [] })
         <div className="menu-container" style={{ position: "relative" }}>
           <button
             ref={menuBtnRef}
-            className="menu-btn"
-            onClick={() => setMenuOpen(!menuOpen)}
+            className={`menu-btn ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((prev) => !prev)}
           >
-            {menuOpen ? "CLOSE" : "MENU"}
+            <span className="menu-text">
+              {menuOpen ? "CLOSE" : "MENU"}
+            </span>
+
+            <span className="menu-colon">
+              <span />
+              <span />
+            </span>
           </button>
 
           <div
             ref={menuRef}
             className={`menu-overlay ${menuOpen ? "open" : ""}`}
-  //           
           >
-            {menuItems.map((item, i) => (
-              <div key={i} className="menu-item">
+            {menuItems.map((item) => (
+              <div
+                key={item}
+                className={`menu-item ${
+                  location.pathname === routesMap[item] ? "active" : ""
+                }`}
+                onClick={() => {
+                  navigate(routesMap[item]);
+                  setMenuOpen(false);
+                }}
+              >
                 {item}
               </div>
             ))}

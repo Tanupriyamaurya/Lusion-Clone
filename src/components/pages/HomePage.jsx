@@ -14,7 +14,7 @@ const HomePage = () => {
         brandName="STUDIO X"
         headlineText="Crafting interactive experiences through design and technology"
         ctaText="START A PROJECT"
-        menuItems={["Home", "About Us", "Projects", "Contact", "Labs"]}
+menuItems={["HOME", "ABOUT", "PROJECTS", "CONTACT", "LABS"]}
       />
       <HeroVideoSection />
       <HeroTextSection />
