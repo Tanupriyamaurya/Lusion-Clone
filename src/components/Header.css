@@ -1,0 +1,257 @@
+:root {
+  --header-height: 72px; /* 🔥 reduced */
+  --btn-dark: #111;
+}
+
+body {
+  margin: 0;
+  padding-top: var(--header-height);
+  font-family: sans-serif;
+  overflow-x: hidden;
+  background: #f4f6fb; /* 🔥 THIS FIXES BLACK SPACE */
+
+}
+
+
+/* ---------- HEADER ---------- */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  z-index: 1000;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+margin-top:26px;
+
+  padding: 0 8px; /* 🔥 reduced side space */
+  /* background: #f4f6fb; */
+}
+
+
+@media (max-width: 1200px) {
+  .header {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+  }
+}
+
+.header__brand {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  white-space: nowrap;
+  margin-right: 20px;         /* 🔥 controls gap after brand */
+  flex-shrink: 0;
+}
+
+/* Center Text — FIXED */
+
+.header__center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  max-width: 600px;
+  width: 100%;
+
+  text-align: center;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0 16px;
+}
+
+
+
+/* Right */
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+    flex-shrink: 0;
+ margin-left: auto;
+  padding-left: 24px;
+}
+
+/* Buttons */
+
+.talk-btn,
+.menu-btn {
+  border: none;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.talk-btn {
+  background: var(--btn-dark);
+  color: #fff;
+}
+
+/* MENU BUTTON + COLON */
+
+.menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+  background-color: #d4dae7;
+}
+
+.menu-colon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.35s ease;
+}
+
+.menu-colon span {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+/* Hover */
+
+.menu-btn:hover .menu-colon span:first-child {
+  transform: translateY(-2px);
+}
+
+.menu-btn:hover .menu-colon span:last-child {
+  transform: translateY(2px);
+}
+
+/* Open */
+
+.menu-btn.open .menu-colon {
+  transform: rotate(90deg);
+  opacity: 0.6;
+}
+
+/* Menu Overlay */
+
+.menu-overlay {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  .header__center {
+    font-size: 20px;
+    max-width: 90%;
+  }
+
+  .talk-btn {
+    display: none;
+  }
+}
+.talk-btn,
+.menu-btn {
+  border: none;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+
+  /* 🔑 prevent movement */
+  box-sizing: border-box;
+
+  /* smooth color only */
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.talk-btn:hover,
+.menu-btn:hover {
+  background-color: #2563eb; /* blue */
+  color: #fff;
+}
+.talk-btn,
+.menu-btn {
+  will-change: background-color;
+}
+.menu-overlay {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 300px;
+
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1.8rem 2rem;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+}
+
+.menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.menu-item {
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #111;
+  text-transform: uppercase;
+
+  padding: 0.9rem 0;
+  position: relative;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  transition: transform 0.35s ease;
+}
+.menu-item::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #111;
+  border-radius: 50%;
+
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.menu-item:hover {
+  transform: translateX(6px);
+}
+
+.menu-item:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.menu-item:not(:last-child) {
+  margin-bottom: 0.6rem;
+}

@@ -1,0 +1,143 @@
+/* SECTION PADDING */
+.featured-work {
+  padding: 8rem 4rem;
+  background: #f5f6fa;
+}
+
+/* HEADER GRID */
+.featured-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+
+/* HEADING */
+.featured-title {
+  font-size: clamp(4rem, 7vw, 8rem);
+  line-height: 1.1;
+  font-weight: 700; 
+  opacity: 0;                   /* start invisible */
+  transform: translateY(30px);  /* start slightly below */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.featured-title.visible {
+  opacity: 1;
+  transform: translateY(0);     /* slide to original position */
+}
+
+.featured-title .brand {
+  display: block;
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+}
+
+/* HEADER PARAGRAPH */
+.featured-info {
+  max-width: 420px;           /* width of paragraph block */
+  justify-self: end;           /* align block to the right in grid */
+  text-align: right;           /* text inside aligns right */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
+}
+
+.featured-info.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Featured info paragraph */
+/* HEADER PARAGRAPH */
+.featured-info {
+  max-width: 420px;           
+  justify-self: end;           /* align block to the right in grid */
+  text-align: right;           
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out 0.2s, transform 1s ease-out 0.2s;
+}
+
+.featured-info.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.featured-info p {
+  font-size: 1rem;       /* slightly smaller than before */
+  line-height: 1.6;      /* better spacing for readability */
+  color: #555;
+  margin: 0;             /* remove extra spacing */
+}
+
+
+/* GRID FOR WORK CARDS */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+/* WORK CARD */
+.work-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.work-media {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.work-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.work-card:hover img {
+  transform: scale(1.05);
+}
+
+.work-meta {
+  margin-top: 1rem;
+}
+
+.work-category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.work-title {
+  font-size: 3.4rem;
+  margin-top: 2.3rem;
+}
+
+.work-image-wrapper {
+  aspect-ratio: 4 / 5;
+}
+
+.featured-grid .work-card:last-child .work-image-wrapper {
+  aspect-ratio: 4 / 3;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .featured-header {
+    grid-template-columns: 1fr; /* stack heading and paragraph */
+    gap: 1.5rem;
+  }
+  .featured-info {
+    justify-self: start;       /* stack nicely on mobile */
+    text-align: left;
+  }
+  .featured-info p {
+    text-align: left;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

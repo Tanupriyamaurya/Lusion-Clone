@@ -1,0 +1,27 @@
+.page-layout {
+  min-height: 100vh;
+  padding: 8rem 4rem;
+  background: #f5f6fa;
+}
+
+.page-header {
+  max-width: 1200px;
+  margin-bottom: 5rem;
+}
+
+.page-header h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.page-header p {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  max-width: 520px;
+  color: #555;
+}
+
+.page-content {
+  max-width: 1200px;
+}
